@@ -7,8 +7,8 @@ defmodule Procrastinator.Mixfile do
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps
-   docs: [extras: ["README.md"]]]
+     deps: deps,
+     docs: [extras: ["README.md"]]]
   end
 
   # Configuration for the OTP application
@@ -28,7 +28,7 @@ defmodule Procrastinator.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:credo, only: [:dev, :test]},
+    [{:credo, "~> 0.4.12", only: [:dev, :test]},
      {:ex_doc, "~> 0.11", only: :dev}]
   end
 end

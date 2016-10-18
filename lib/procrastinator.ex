@@ -22,9 +22,9 @@ defmodule Procrastinator do
         )
       end
 
-      def push(data) do
-        GenServer.cast(name, {:push, data})
-      end
+      def push(data), do: GenServer.cast(name, {:push, data})
+
+      def get, do: GenServer.call(name, :get)
 
       ## Server Callbacks
 
@@ -33,18 +33,26 @@ defmodule Procrastinator do
       def handle_cast({:push, data}, bucket) do
         case status([data | bucket]) do
           :overflow ->
-            process(bucket)
+            process_bucket(bucket)
             {:noreply, [data], timeout}
           :full ->
-            process([data | bucket])
+            process_bucket([data | bucket])
             {:noreply, []}
           :continue -> {:noreply, [data | bucket], timeout}
         end
       end
 
+      def handle_call(:get, _, data), do: {:reply, data, data, timeout}
+
       def handle_info(:timeout, bucket) do
-        process(bucket)
+        process_bucket(bucket)
         {:noreply, []}
+      end
+
+      defp process_bucket(bucket) do
+        bucket
+        |> Enum.reverse
+        |> process
       end
     end
   end
