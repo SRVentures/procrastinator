@@ -4,6 +4,8 @@ defmodule Procrastinator.Mixfile do
   def project do
     [app: :procrastinator,
      version: "0.1.0",
+     description: description,
+     package: package,
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -30,5 +32,20 @@ defmodule Procrastinator.Mixfile do
   defp deps do
     [{:credo, "~> 0.4.12", only: [:dev, :test]},
      {:ex_doc, "~> 0.11", only: :dev}]
+  end
+
+  defp description do
+    """
+    Procrastinates work until the last second or until the work load has gotten
+    so big that it has to do it. Just like people!
+    """
+  end
+
+  defp package do
+    [
+      maintainers: ["Trevor Fenn", "Podium"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/SRVentures/procrastinator"}
+    ]
   end
 end

@@ -1,10 +1,13 @@
 # Procrastinator
 
-**TODO: Add description**
+You give it work to do, and it procrastinates, either waiting until the last
+minute or until it has so much to do that is _has_ to do it.
+
+See [hex docs](https://hexdocs.pm/procrastinator/0.1.0/Procrastinator.html).
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+The package can be installed as:
 
   1. Add `procrastinator` to your list of dependencies in `mix.exs`:
 
@@ -13,12 +16,3 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
       [{:procrastinator, "~> 0.1.0"}]
     end
     ```
-
-  2. Ensure `procrastinator` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:procrastinator]]
-    end
-    ```
-
