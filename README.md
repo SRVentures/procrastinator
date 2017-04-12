@@ -11,8 +11,8 @@ The package can be installed as:
 
   1. Add `procrastinator` to your list of dependencies in `mix.exs`:
 
-    ```elixir
-    def deps do
-      [{:procrastinator, "~> 0.1.0"}]
-    end
-    ```
+```elixir
+  def deps do
+    [{:procrastinator, "~> 0.1.0"}]
+  end
+```
