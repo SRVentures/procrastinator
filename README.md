@@ -3,7 +3,7 @@
 You give it work to do, and it procrastinates, either waiting until the last
 minute or until it has so much to do that is _has_ to do it.
 
-See [hex docs](https://hexdocs.pm/procrastinator/0.1.0/Procrastinator.html).
+See [hex docs](https://hexdocs.pm/procrastinator).
 
 ## Installation
 
