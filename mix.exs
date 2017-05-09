@@ -45,7 +45,7 @@ defmodule Procrastinator.Mixfile do
     [
       maintainers: ["Trevor Fenn", "Podium"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/SRVentures/procrastinator"}
+      links: %{"GitHub" => "https://github.com/Podium/procrastinator"}
     ]
   end
 end
