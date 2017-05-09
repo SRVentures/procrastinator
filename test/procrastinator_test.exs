@@ -90,4 +90,21 @@ defmodule ProcrastinatorTest do
     :timer.sleep(200)
     assert Timeout2.get == []
   end
+
+  test "Synchronously pushes the data via :call" do
+    defmodule Synchronous do
+      use Procrastinator
+
+      def timeout, do: 1_000
+      def name, do: :call_push
+      def status(_), do: :continue
+      def process(data), do: data
+    end
+
+    Synchronous.start_link
+    Synchronous.push(1, :call)
+    Synchronous.push(2, :call)
+    Synchronous.push(3, :call)
+    assert Synchronous.get == [3, 2, 1]
+  end
 end

@@ -3,13 +3,13 @@ defmodule Procrastinator.Mixfile do
 
   def project do
     [app: :procrastinator,
-     version: "0.1.0",
-     description: description,
-     package: package,
+     version: "0.1.1",
+     description: description(),
+     package: package(),
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps,
+     deps: deps(),
      docs: [extras: ["README.md"]]]
   end
 
