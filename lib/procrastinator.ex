@@ -144,7 +144,7 @@ defmodule Procrastinator do
         GenServer.start_link(
           __MODULE__,
           nil,
-          name: name
+          name: name()
         )
       end
 
@@ -153,14 +153,15 @@ defmodule Procrastinator do
       returned from `status/1`, this data will either end up sitting in the
       bucket or be processed.
       """
-      def push(data, _type \\ :cast), do: GenServer.cast(name, {:push, data})
-      def push(data, :call), do: GenServer.call(name, {:push, data})
+      def push(data, _type \\ :cast)
+      def push(data, :cast), do: GenServer.cast(name(), {:push, data})
+      def push(data, :call), do: GenServer.call(name(), {:push, data})
 
       @doc """
       Returns the current bucket. This is mostly just for testing; it will
       reset the timeout every time you call it so use it wisely.
       """
-      def get, do: GenServer.call(name, :get)
+      def get, do: GenServer.call(name(), :get)
 
       ## Server Callbacks
 
@@ -174,12 +175,12 @@ defmodule Procrastinator do
         case status(new_state) do
           :overflow ->
             process_bucket(bucket)
-            {:noreply, [data], timeout}
+            {:noreply, [data], timeout()}
           :full ->
             process_bucket(new_state)
             {:noreply, []}
           :continue ->
-            {:noreply, new_state, timeout}
+            {:noreply, new_state, timeout()}
         end
       end
 
@@ -190,17 +191,17 @@ defmodule Procrastinator do
         case status(new_state) do
           :overflow ->
             process_bucket(bucket)
-            {:reply, [data], [data], timeout}
+            {:reply, [data], [data], timeout()}
           :full ->
             process_bucket(new_state)
             {:reply, [], []}
           :continue ->
-            {:reply, new_state, new_state, timeout}
+            {:reply, new_state, new_state, timeout()}
         end
       end
 
       @doc false
-      def handle_call(:get, _, data), do: {:reply, data, data, timeout}
+      def handle_call(:get, _, data), do: {:reply, data, data, timeout()}
 
       @doc false
       def handle_info(:timeout, bucket) do
@@ -211,8 +212,8 @@ defmodule Procrastinator do
       @doc false
       defp process_bucket(bucket) do
         bucket
-        |> Enum.reverse
-        |> process
+        |> Enum.reverse()
+        |> process()
       end
     end
   end
