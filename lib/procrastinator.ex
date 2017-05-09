@@ -153,7 +153,8 @@ defmodule Procrastinator do
       returned from `status/1`, this data will either end up sitting in the
       bucket or be processed.
       """
-      def push(data), do: GenServer.cast(name, {:push, data})
+      def push(data, _type \\ :cast), do: GenServer.cast(name, {:push, data})
+      def push(data, :call), do: GenServer.call(name, {:push, data})
 
       @doc """
       Returns the current bucket. This is mostly just for testing; it will
@@ -168,14 +169,33 @@ defmodule Procrastinator do
 
       @doc false
       def handle_cast({:push, data}, bucket) do
-        case status([data | bucket]) do
+        new_state = [data | bucket]
+
+        case status(new_state) do
           :overflow ->
             process_bucket(bucket)
             {:noreply, [data], timeout}
           :full ->
-            process_bucket([data | bucket])
+            process_bucket(new_state)
             {:noreply, []}
-          :continue -> {:noreply, [data | bucket], timeout}
+          :continue ->
+            {:noreply, new_state, timeout}
+        end
+      end
+
+      @doc false
+      def handle_call({:push, data}, _from, bucket) do
+        new_state = [data | bucket]
+
+        case status(new_state) do
+          :overflow ->
+            process_bucket(bucket)
+            {:reply, [data], [data], timeout}
+          :full ->
+            process_bucket(new_state)
+            {:reply, [], []}
+          :continue ->
+            {:reply, new_state, new_state, timeout}
         end
       end
 
