@@ -176,9 +176,11 @@ defmodule Procrastinator do
           :overflow ->
             process_bucket(bucket)
             {:noreply, [data], timeout()}
+
           :full ->
             process_bucket(new_state)
             {:noreply, []}
+
           :continue ->
             {:noreply, new_state, timeout()}
         end
@@ -192,9 +194,11 @@ defmodule Procrastinator do
           :overflow ->
             process_bucket(bucket)
             {:reply, [data], [data], timeout()}
+
           :full ->
             process_bucket(new_state)
             {:reply, [], []}
+
           :continue ->
             {:reply, new_state, new_state, timeout()}
         end
