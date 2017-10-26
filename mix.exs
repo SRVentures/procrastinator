@@ -2,15 +2,17 @@ defmodule Procrastinator.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :procrastinator,
-     version: "0.1.1",
-     description: description(),
-     package: package(),
-     elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps(),
-     docs: [extras: ["README.md"]]]
+    [
+      app: :procrastinator,
+      version: "0.1.1",
+      description: description(),
+      package: package(),
+      elixir: "~> 1.3",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      docs: [extras: ["README.md"]]
+    ]
   end
 
   # Configuration for the OTP application
@@ -30,8 +32,7 @@ defmodule Procrastinator.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:credo, "~> 0.4.12", only: [:dev, :test]},
-     {:ex_doc, "~> 0.11", only: :dev}]
+    [{:credo, "~> 0.4.12", only: [:dev, :test]}, {:ex_doc, "~> 0.11", only: :dev}]
   end
 
   defp description do
