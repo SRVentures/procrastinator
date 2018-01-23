@@ -86,8 +86,6 @@ defmodule Procrastinator do
       opts = [strategy: :one_for_one, name: YourApp.Supervisor]
       Supervisor.start_link(children, opts)
   """
-  use GenServer
-
   @doc """
   The name to register the procrastinator to.
   """
@@ -135,6 +133,7 @@ defmodule Procrastinator do
   defmacro __using__(_) do
     quote location: :keep do
       @behaviour Procrastinator
+      use GenServer
 
       ## Client API
       @doc """

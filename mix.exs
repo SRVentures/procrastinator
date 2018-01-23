@@ -4,7 +4,7 @@ defmodule Procrastinator.Mixfile do
   def project do
     [
       app: :procrastinator,
-      version: "0.1.1",
+      version: "0.1.2",
       description: description(),
       package: package(),
       elixir: "~> 1.3",
