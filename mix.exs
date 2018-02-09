@@ -4,7 +4,7 @@ defmodule Procrastinator.Mixfile do
   def project do
     [
       app: :procrastinator,
-      version: "0.1.1",
+      version: "0.1.2",
       description: description(),
       package: package(),
       elixir: "~> 1.3",
@@ -32,7 +32,7 @@ defmodule Procrastinator.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:credo, "~> 0.4.12", only: [:dev, :test]}, {:ex_doc, "~> 0.11", only: :dev}]
+    [{:credo, "~> 0.8.10", only: [:dev, :test]}, {:ex_doc, "~> 0.11", only: :dev}]
   end
 
   defp description do
