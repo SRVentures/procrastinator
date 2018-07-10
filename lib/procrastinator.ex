@@ -3,7 +3,7 @@ defmodule Procrastinator do
   A behavior module for batching/procrastinating work.
 
   One procrastinator is defined per app. In the future this may change, but the
-  original use was too aggregate results coming from multiple processes, so the
+  original use was to aggregate results coming from multiple processes, so the
   underlying GenServer is assigned a name through the `name/0` callback, and so
   there will exist one instance per defined module that uses Procrastinator.
 
@@ -56,7 +56,7 @@ defmodule Procrastinator do
       SaveToThirdParty.start_link
       SaveToThirdParty.push(1)
 
-  In this scenario, we the processes can be slow, so we want to wait a minute
+  In this scenario, the processes can be slow, so we want to wait a minute
   before sending a batch to give it a chance to fill up all the way. The volume
   of processes ensures that the timeout won't be reached until most of them
   have already finished and just the stragglers are running.
