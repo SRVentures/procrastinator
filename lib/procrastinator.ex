@@ -165,7 +165,14 @@ defmodule Procrastinator do
       ## Server Callbacks
 
       @doc false
-      def init(_), do: {:ok, []}
+      def init(_) do
+        schedule_timeout()
+        {:ok, []}
+      end
+
+      defp schedule_timeout() do
+        Process.send_after(self(), :timeout, timeout())
+      end
 
       @doc false
       def handle_cast({:push, data}, bucket) do
@@ -209,6 +216,7 @@ defmodule Procrastinator do
       @doc false
       def handle_info(:timeout, bucket) do
         process_bucket(bucket)
+        schedule_timeout()
         {:noreply, []}
       end
 
